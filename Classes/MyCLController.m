@@ -56,15 +56,34 @@ static MyCLController *sharedCLDelegate = nil;
 
 @implementation MyCLController
 
-@synthesize delegate, locationManager;
+@synthesize delegates, locationManager;
 
 - (id) init {
 	self = [super init];
 	if (self != nil) {
 		self.locationManager = [[[CLLocationManager alloc] init] autorelease];
 		self.locationManager.delegate = self; // Tells the location manager to send updates to this object
+		NSMutableArray *a = [[NSMutableArray alloc] init];
+		self.delegates=a;
+		[a release];
 	}
 	return self;
+}
+
+- (void)registerListener:(id)listener{
+	if (![sharedCLDelegate.delegates containsObject:listener]) {
+		[sharedCLDelegate.delegates addObject:listener];
+	}
+}
+-(void)deregisterListener:(id)listener{
+	[sharedCLDelegate.delegates removeObject:listener];
+}
+		
+- (void)startUpdateLocation{
+	[sharedCLDelegate.locationManager startUpdatingLocation];
+}
+- (void)stopUpdateLocation{
+	[sharedCLDelegate.locationManager stopUpdatingLocation];
 }
 
 
@@ -74,7 +93,7 @@ static MyCLController *sharedCLDelegate = nil;
 		   fromLocation:(CLLocation *)oldLocation
 {
 	DebugLog(@"updated with new location");
-	[self.delegate newLocationUpdateWithLocation:newLocation];
+	[sharedCLDelegate.delegates makeObjectsPerformSelector:@selector(newLocationUpdateWithLocation:) withObject:newLocation];
 }
 
 
@@ -124,7 +143,8 @@ static MyCLController *sharedCLDelegate = nil;
 	}
 
 	// Send the update to our delegate
-	[self.delegate newError:errorString];
+	[sharedCLDelegate.delegates makeObjectsPerformSelector:@selector(newError:) withObject:errorString];
+	
 }
 
 #pragma mark ---- singleton object methods ----

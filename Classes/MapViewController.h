@@ -5,12 +5,12 @@
 @class LocationPlaceMark;
 @interface MapViewController : UIViewController <MKMapViewDelegate, MKReverseGeocoderDelegate, CLLocationManagerDelegate> {
 	MKMapView *mapView;
-//	MKPlacemark *mPlacemark;
 
-	
+	NSMutableArray *entries;
 }
+@property (nonatomic, retain) NSMutableArray *entries;
 
--(void)setCenterLocation:(LocationPlaceMark*)myLocation;
+-(void)setCenterLocation:(CLLocation*)myLocation;
 -(void)setOtherLocations:(NSArray*)otherLocations;
 -(void)lookupAddress:(CLLocationCoordinate2D)location;
 @end

@@ -7,23 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MyCLController.h"
-@class LocalItemsTableViewController;
-@class CLLocation;
+
+@class SalesTableViewController;
+
 @class GlobalConfiguration;
 @class MapViewController;
 @class LocalAdsBarController;
-@interface mylocalAppDelegate : NSObject <UIApplicationDelegate, MyCLControllerDelegate> {
+@interface mylocalAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
 	UITabBarController *controllerTabBar;
 	UINavigationController *navController;
 	MapViewController *controllerMap;
-	LocalItemsTableViewController *vcLocalItems;
+	SalesTableViewController *vcLocalItems;
 
 	GlobalConfiguration *configuration;
 	
 		NSMutableArray *items;
-		CLLocation *currentLocation;
 	NSString *currentLocationAddress;
 	
 	LocalAdsBarController *adsBar;
@@ -36,13 +35,13 @@
 @property(nonatomic, retain) MapViewController *controllerMap;
 @property(nonatomic, retain) UITabBarController *controllerTabBar;
 @property(nonatomic, retain) GlobalConfiguration *configuration;
-@property(nonatomic, retain) CLLocation *currentLocation;
+
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) UINavigationController *navController;
-@property (nonatomic, retain) LocalItemsTableViewController *vcLocalItems;
+@property (nonatomic, retain) SalesTableViewController *vcLocalItems;
 -(void)startView;
 //-(int)showBillboardTemporaryMessage:(NSString *)msg;
--(void)startUpdateLocation;
+
 
 
 

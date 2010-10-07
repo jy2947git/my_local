@@ -7,19 +7,20 @@
 //
 
 #import "mylocalAppDelegate.h"
-#import "LocalItemsTableViewController.h"
 #import "GlobalConfiguration.h"
 #import "MapViewController.h"
 #import "CoreLocation/CLLocation.h"
 #import "InternetUtility.h"
 #import "LocalAdsBarController.h"
+#import "GTMIPhoneUnitTestDelegate.h"
+#import "SalesTableViewController.h"
 
 @implementation mylocalAppDelegate
 
 @synthesize window;
 @synthesize vcLocalItems;
 @synthesize navController;
-@synthesize currentLocation;
+
 @synthesize configuration;
 @synthesize controllerTabBar;
 @synthesize controllerMap;
@@ -40,21 +41,25 @@
 	[g release];
 	
 
-	
-    // Override point for customization after application launch
-	
-	//set up normal view
-	
+
+#if UNIT_TEST
+	[window makeKeyAndVisible];
+	/* Run all unit tests
+	 * - All unit test output will show in the console of the debug view
+	 * - Obviously, upon distribution, disable unit tests 
+	 * Distro builds: set UNIT_TEST to 0 in your *.pch file (precompiled header file)
+	 */
+	[[GTMIPhoneUnitTestDelegate shared] applicationDidFinishLaunching:application];
+#else
 	[self startView];
 	[window makeKeyAndVisible];
-	
-	[self startUpdateLocation];
+#endif
 
 
 }
 
 -(void)startView{
-	LocalItemsTableViewController *v = [[LocalItemsTableViewController alloc] initWithStyle:UITableViewStylePlain];
+	SalesTableViewController *v = [[SalesTableViewController alloc] initWithStyle:UITableViewStylePlain];
 	self.vcLocalItems=v;
 	[v release];
 	UINavigationController *n = [[UINavigationController alloc] initWithRootViewController:self.vcLocalItems];
@@ -87,46 +92,6 @@
 	[window addSubview:self.adsBar.view];
 }
 
--(void)startUpdateLocation{
-	//[self startSpinner];
-	//isCurrentlyUpdating = YES;
-	
-	//[NSThread detachNewThreadSelector:@selector(downloadBasedOnCurrentLocation) toTarget:self withObject:nil];
-	
-	[MyCLController sharedInstance].delegate = self;
-    // Check to see if the user has disabled location services all together
-    if ( ! [MyCLController sharedInstance].locationManager.locationServicesEnabled ) {
-        //[self addTextToLog:NSLocalizedString(@"NoLocationServices", @"User disabled location services")];
-		DebugLog(@"no location service!!");
-    }
-	[[MyCLController sharedInstance].locationManager startUpdatingLocation];
-	
-}
-
-
-
--(void)newLocationUpdateWithLocation:(CLLocation *)location{
-	self.currentLocation=location;
-	DebugLog(@"location updated");
-	[[MyCLController sharedInstance].locationManager stopUpdatingLocation];
-
-	//
-	if(self.items==nil || [self.items count]==0){
-		//download items and reload table
-		[self.vcLocalItems refreshItemList];
-	}
-
-	//start ads bar
-	[self.adsBar activateAdsBar:location];
-}
-
--(void)newError:(NSString *)text{
-	DebugLog(@"%@", text);
-}
-
--(void)newLocationUpdateWithText:(NSString *)text{
-	DebugLog(@"%@",text);
-}
 
 
 
@@ -141,7 +106,7 @@
 	[controllerMap release];
 	[controllerTabBar release];
 	[configuration release];
-	[currentLocation release];	
+
 	[vcLocalItems release];
 	[navController release];
     [window release];

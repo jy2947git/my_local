@@ -16,3 +16,17 @@
 #define DebugLog(x...)
 
 #endif
+/*
+ * Set to 1 to enable unit tests, 0 to disable
+ */
+#define UNIT_TEST 0
+
+/*
+ * Set to 1 to disable app termination upon completion of all
+ * unit tests, 0 to terminate app
+ * - Setting to 0 and running the tests back to back, may cause
+ * Xcode to display: Cannot launch in simulator while it is already in use.
+ * Leave it set to 1 to avoid it, then close your app more gracefully
+ * - You can also set env var: GTM_DISABLE_TERMINATION 1
+ */
+#define DISABLE_TERMINATION 1

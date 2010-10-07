@@ -1,13 +1,19 @@
 #import "MapViewController.h"
 #import "LocationPlaceMark.h"
 #import "mylocalAppDelegate.h"
+#import "SalesDownloader.h"
+#import "Sale.h"
 
 @implementation MapViewController
 
+@synthesize entries;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         // Custom initialization
+		NSMutableArray *a = [[NSMutableArray alloc] init];
+		self.entries = a;
+		[a release];
     }
     return self;
 }
@@ -17,39 +23,32 @@
  - (void)viewDidLoad {
 	 
 	 [super viewDidLoad];
+	 [self.entries removeAllObjects];
+	 [self.entries addObjectsFromArray:[SalesDownloader sharedInstance].items];
 	 mapView=[[MKMapView alloc] initWithFrame:self.view.frame];
 	 //mapView.showsUserLocation=TRUE;
 	 mapView.delegate=self;
 
-	 
-
-//	 CLLocationManager *locationManager=[[CLLocationManager alloc] init];
-//	 locationManager.delegate=self;
-//	 locationManager.desiredAccuracy=kCLLocationAccuracyNearestTenMeters;
-//	 
-//	 [locationManager startUpdatingLocation];
+	 [self setCenterLocation:[[SalesDownloader sharedInstance] currentLocation]];
 	 [self.view insertSubview:mapView atIndex:0];
+	 
  }
 
--(void)viewWillAppear:(BOOL)animated{
-	mylocalAppDelegate *delegate = (mylocalAppDelegate*)[UIApplication sharedApplication].delegate;
-	//get data from delegate
-	LocationPlaceMark *me = [[LocationPlaceMark alloc]initWithCoordinate:delegate.currentLocation.coordinate title:@"me" subtitle:NSLocalizedString(@"You are here",@"You are here")];
-	[self setCenterLocation:me];
-	[me release];
+- (void)viewDidUnload{
 	
-	NSMutableArray *otherLocations = [[NSMutableArray alloc] init];
-	for(int i=0;i<[delegate.items count];i++){
-		NSString *s = [delegate.items objectAtIndex:i];
-		NSArray *itemData = [s componentsSeparatedByString:@"^"];
+	[super viewDidUnload];
+}
 
-			NSString *address = [itemData objectAtIndex:2];
-			NSString *latitude = [itemData objectAtIndex:6];
-			NSString *longitude = [itemData objectAtIndex:7];
-			NSString *distance = [itemData objectAtIndex:8];
+
+
+-(void)viewWillAppear:(BOOL)animated{
+		
+	NSMutableArray *otherLocations = [[NSMutableArray alloc] init];
+	for(Sale *sale in entries){
+		
 			//create location-place-mark
-			CLLocationCoordinate2D c = {[latitude doubleValue],[longitude doubleValue]};
-		LocationPlaceMark *m = [[LocationPlaceMark alloc]initWithCoordinate:c title:[NSString stringWithFormat:@"%i",i] subtitle:address];
+			CLLocationCoordinate2D c = {[sale.latitude doubleValue],[sale.longitude doubleValue]};
+		LocationPlaceMark *m = [[LocationPlaceMark alloc]initWithCoordinate:c title:[NSString stringWithFormat:@"%@",sale.address1] subtitle:nil];
 			[otherLocations addObject:m];
 			[m release];
 		
@@ -57,7 +56,10 @@
 	[self setOtherLocations:otherLocations];
 }
 
--(void)setCenterLocation:(LocationPlaceMark*)myLocation{
+-(void)setCenterLocation:(CLLocation*)myLocation{
+	
+	LocationPlaceMark *me = [[LocationPlaceMark alloc]initWithCoordinate:myLocation.coordinate title:@"me" subtitle:NSLocalizedString(@"You are here",@"You are here")];
+	
 	MKCoordinateRegion region;
 	region.center=myLocation.coordinate;
 	//Set Zoom level using Span
@@ -68,8 +70,11 @@
 	
 	[mapView setRegion:region animated:TRUE];
 	//anotation
-	[mapView addAnnotation:myLocation];
+	[mapView addAnnotation:me];
+	[me release];
 }
+
+
 -(void)setOtherLocations:(NSArray*)otherLocations{
 	for(int i=0;i<[otherLocations count];i++){
 		[mapView addAnnotation:[otherLocations objectAtIndex:i]];
@@ -93,13 +98,10 @@
 	// Release any cached data, images, etc that aren't in use.
 }
 
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
-}
 
 
 - (void)dealloc {
+	[entries release];
     [super dealloc];
 }
 

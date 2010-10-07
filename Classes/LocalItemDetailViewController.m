@@ -15,7 +15,7 @@
 #import "DatePickerView.h"
 #import "GlobalConfiguration.h"
 #import "MapKit/MKPlacemark.h"
-#import "LocalItemsTableViewController.h"
+#import "SalesDownloader.h"
 
 @implementation LocalItemDetailViewController
 @synthesize address;
@@ -30,7 +30,8 @@
 @synthesize isEditing;
 @synthesize deleteButton;
 @synthesize isNew;
-@synthesize listController;
+@synthesize myLocation;
+
 // The designated initializer. Override to perform setup that is required before the view is loaded.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -58,7 +59,7 @@
 	//if it is new, then try to figure out the current location by reverse geocoding
 	if(self.isNew){
 		if(delegate.currentLocationAddress==nil){
-			MKReverseGeocoder *appleReverseGeocoder = [[MKReverseGeocoder alloc] initWithCoordinate:delegate.currentLocation.coordinate];
+			MKReverseGeocoder *appleReverseGeocoder = [[MKReverseGeocoder alloc] initWithCoordinate:self.myLocation.coordinate];
 			appleReverseGeocoder.delegate=self;
 			[appleReverseGeocoder start];
 			DebugLog(@"start reverse geocoding...");
@@ -204,7 +205,6 @@
 
 -(IBAction)delete:(id)sender{
 
-	mylocalAppDelegate *delegate = (mylocalAppDelegate*)[UIApplication sharedApplication].delegate;
 	UIActivityIndicatorView *c = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
 	c.frame=CGRectMake(160, 220, 30, 30);
 	[c startAnimating];
@@ -236,7 +236,7 @@
 	//
 	[c stopAnimating];
 	[c release];
-	[self.listController refreshItemList];
+	[[SalesDownloader sharedInstance] forceToRefreshSaleItems];
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -267,12 +267,12 @@
 	NSString *startDate = [self stringFromDate:self.selectedStartDate];
 	NSString *endDate = [self stringFromDate:self.selectedEndDate];
 	//
-	NSString *latitudeString = [[NSString alloc]initWithFormat:@"%.6f",delegate.currentLocation.coordinate.latitude];
-	NSString *longitudeString = [[NSString alloc]initWithFormat:@"%.6f",delegate.currentLocation.coordinate.longitude];
+	NSString *latitudeString = [[NSString alloc]initWithFormat:@"%.6f",self.myLocation.coordinate.latitude];
+	NSString *longitudeString = [[NSString alloc]initWithFormat:@"%.6f",self.myLocation.coordinate.longitude];
 	NSString *messageString = [[NSString alloc] initWithFormat:@"token=%@&command=upload&id=%@&userId=%@&latitude=%@&longitude=%@&address=%@&description=%@&startDate=%@&endDate=%@",requestToken,self.saleItemId,deviceId,latitudeString,longitudeString,addressString,desc,startDate,endDate];
 	DebugLog(@"request:%@", messageString);
     //NSString *encodedMessageString = (NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)messageString, CFSTR(""), CFSTR(" %\"?=&+<>;:-"),  kCFStringEncodingUTF8);
-	NSString *urlString = [[NSString alloc] initWithFormat:@"http://%@/serve?%@",serverHost, messageString];
+	NSString *urlString = [[NSString alloc] initWithFormat:@"http://%@/yardsale?%@",serverHost, messageString];
 	NSError *error = nil;
 	InternetUtility *u = [[InternetUtility alloc] init];
 
@@ -300,7 +300,7 @@
 	[c stopAnimating];
 	[c release];
 	//call parent to reload
-	[self.listController refreshItemList];
+	[[SalesDownloader sharedInstance] forceToRefreshSaleItems];
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -388,6 +388,7 @@
 }
 
 - (void)dealloc {
+	[myLocation release];
 	if(self.deleteButton!=nil){
 		[self.deleteButton release];
 	}

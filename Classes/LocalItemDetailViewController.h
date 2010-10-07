@@ -13,10 +13,9 @@ enum TAG_DATE_PICKER{
 	TAG_START_DATE=98387,
 	TAG_END_DATE=98388
 };
-
+@class CLLocation;
 @class InputLabel;
 @class DatePickerView;
-@class LocalItemsTableViewController;
 @interface LocalItemDetailViewController : UIViewController <UITextViewDelegate,MKReverseGeocoderDelegate>{
 	IBOutlet UITextField *address;
 	IBOutlet UITextView *description;
@@ -30,8 +29,9 @@ enum TAG_DATE_PICKER{
 	Boolean isEditing;
 	Boolean isNew;
 	UIButton *deleteButton;
-	LocalItemsTableViewController *listController;
+	CLLocation *myLocation;
 }
+@property (nonatomic, retain) CLLocation *myLocation;
 @property(nonatomic, retain) UIButton *deleteButton;
 @property Boolean isEditing;
 @property Boolean isNew;
@@ -44,7 +44,7 @@ enum TAG_DATE_PICKER{
 @property(nonatomic, retain) DatePickerView *datePicker;
 @property(nonatomic, retain) NSDate *selectedStartDate;
 @property(nonatomic, retain) NSDate *selectedEndDate;
-@property(nonatomic, assign) LocalItemsTableViewController *listController;
+
 -(IBAction)done:(id)sender;
 - (void)showDatePicker:(id)sender;
 - (void)removePickerView:(NSString *)animationID finished:(BOOL)finished context:(void *)context;

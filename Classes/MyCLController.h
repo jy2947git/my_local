@@ -58,11 +58,11 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 // Class definition
 @interface MyCLController : NSObject <CLLocationManagerDelegate> {
 	CLLocationManager *locationManager;
-	id delegate;
+	NSMutableArray *delegates;
 }
 
 @property (nonatomic, retain) CLLocationManager *locationManager;
-@property (nonatomic,assign) id <MyCLControllerDelegate> delegate;
+@property (nonatomic, retain) NSMutableArray *delegates;
 
 
 - (void)locationManager:(CLLocationManager *)manager
@@ -73,6 +73,9 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	   didFailWithError:(NSError *)error;
 
 + (MyCLController *)sharedInstance;
-
+- (void)registerListener:(id)listener;
+- (void)deregisterListener:(id)listener;
+- (void)startUpdateLocation;
+- (void)stopUpdateLocation;
 @end
 

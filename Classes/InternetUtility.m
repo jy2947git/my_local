@@ -26,6 +26,7 @@
 	}else{
 		//NSString *replyString = [[NSString alloc] initWithBytes:[serverReply bytes] length:[serverReply length] encoding: NSUTF8StringEncoding];
 		NSString *replyString = [[NSString alloc] initWithData:serverReply encoding:NSUTF8StringEncoding];
+		DebugLog(@"response:%@", replyString);
 		return replyString;
 	}
 }
