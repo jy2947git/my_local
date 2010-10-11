@@ -13,8 +13,8 @@
 #import "ImageInfo.h"
 
 @implementation Sale
-@synthesize saleId,userUniqueId, startDate, endDate, latitude, longitude, address1, address2, city, state, zipcode, countryCode, images, phone, email, status, description;
-
+@synthesize saleId,userUniqueId, startDate, endDate, latitude, longitude, address1, address2, city, state, zipcode, countryCode, images, phone, email, status, detail, iconImageBlobKey;
+@synthesize icon;
 - (id)init{
 	if (self=[super init]) {
 //		NSMutableArray *a = [[NSMutableArray alloc] init];
@@ -48,8 +48,8 @@
 	[dic setValue:countryCode forKey:@"countryCode"];
 	[dic setValue:phone forKey:@"phone"];
 	[dic setValue:email forKey:@"email"];
-	[dic setValue:description forKey:@"description"];
-
+	[dic setValue:detail forKey:@"detail"];
+	[dic setValue:iconImageBlobKey forKey:@"iconImageBlobKey"];
 	//items need to handle specially, transform to Array of Dictionary since JSON can only handle the limited types
 //	NSMutableArray *arrItems = [[[NSMutableArray alloc] init] autorelease];
 //	for (SaleItem *item in self.items) {
@@ -72,9 +72,10 @@
 	self.state=[dic valueForKey:@"state"];
 	self.zipcode=[dic valueForKey:@"zipcode"];
 	self.countryCode=[dic valueForKey:@"countryCode"];
-	
+	self.detail=[dic valueForKey:@"detail"];
 	self.phone=[dic valueForKey:@"phone"];
 	self.email=[dic valueForKey:@"email"];
+	self.iconImageBlobKey = [dic valueForKey:@"iconImageBlobKey"];
 	//convert from Array of Dictionary to Array of SaleItem
 //	NSArray *arrItems = (NSArray*)[dic objectForKey:@"items"];
 //	for (NSDictionary *dic in arrItems) {
@@ -92,6 +93,7 @@
 }
 
 - (void)dealloc{
+	[icon release];
 	[latitude release];
 	[longitude release];
 	[phone release];
@@ -109,7 +111,8 @@
 	[zipcode release];
 	[countryCode release];
 	[status release];
-	[description release];
+	[detail release];
+	[iconImageBlobKey release];
 	[super dealloc];
 }
 

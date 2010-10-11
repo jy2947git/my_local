@@ -62,7 +62,7 @@
     [self willChangeValueForKey:@"isExecuting"];
     _isExecuting = YES;
     [self didChangeValueForKey:@"isExecuting"];
-
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     NSURLRequest * request = [NSURLRequest requestWithURL:_url];
     _connection = [[NSURLConnection alloc] initWithRequest:request
                                                   delegate:self];
@@ -78,7 +78,7 @@
     
     [_connection release];
     _connection = nil;
-    
+
     [self willChangeValueForKey:@"isExecuting"];
     [self willChangeValueForKey:@"isFinished"];
 
@@ -110,6 +110,7 @@ didReceiveResponse:(NSURLResponse *)response
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 	[delegate downloadOperationFinishedWithData:_data userInfo:self.userInfo];
     [self finish];
 }
@@ -117,6 +118,7 @@ didReceiveResponse:(NSURLResponse *)response
 - (void)connection:(NSURLConnection *)connection
   didFailWithError:(NSError *)error
 {
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     _error = [error copy];
 	[delegate downloadOperationFinishedWithError:_error userInfo:self.userInfo];
     [self finish];

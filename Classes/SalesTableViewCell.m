@@ -7,7 +7,7 @@
 //
 
 #import "SalesTableViewCell.h"
-#import "SaleForView.h"
+#import "Sale.h"
 
 @implementation SalesTableViewCell
 @synthesize icon, address1Label, cityLabel, zipcodeLabel, distanceLabel, saleView;
@@ -22,7 +22,7 @@
 	[super dealloc];
 }
 
-- (void)setSale:(SaleForView *)_sale{
+- (void)setSale:(Sale *)_sale{
 	DebugLog(@"%@",_sale);
 	self.saleView=_sale;
 	//do not set image here, the table-view-controller will handle the downloading and displaying

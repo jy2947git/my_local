@@ -26,7 +26,12 @@
 	NSString *currentLocationAddress;
 	
 	LocalAdsBarController *adsBar;
-
+	//
+	//we are using CoreData framework to store Sale locally to minimize
+	//the server hit.
+	NSPersistentStoreCoordinator *persistentStoreCoordinator;
+    NSManagedObjectModel *managedObjectModel;
+    NSManagedObjectContext *managedObjectContext;
 }
 
 @property(nonatomic, retain) LocalAdsBarController *adsBar;
@@ -39,12 +44,17 @@
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) UINavigationController *navController;
 @property (nonatomic, retain) SalesTableViewController *vcLocalItems;
+
+@property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 -(void)startView;
 //-(int)showBillboardTemporaryMessage:(NSString *)msg;
 
 
 
-
+- (NSString *)applicationDocumentsDirectory;
+- (void)saveContext;
 
 @end
 

@@ -23,6 +23,7 @@
 	DownloaderQueue *queue;
 	CLLocation *lastQueryLocation;
 	CLLocation *currentLocation;
+	NSTimer *refreshSalesTimer;
 }
 @property (nonatomic, retain) DownloaderQueue *queue;
 @property (nonatomic, retain) IBOutlet SalesTableViewCell *saleCell;
@@ -30,6 +31,7 @@
 @property (nonatomic, retain) NSMutableDictionary *imageDownloadsInProgress;
 @property (nonatomic, retain) CLLocation *lastQueryLocation;
 @property (nonatomic, retain) CLLocation *currentLocation;
-//-(void)addButtonWasPressed;
+@property (nonatomic, retain) NSTimer *refreshSalesTimer;
+-(void)addButtonWasPressed;
 //-(void)displayWarning:(NSString*)msg;
 @end

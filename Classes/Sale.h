@@ -4,7 +4,7 @@
 //
 //  model to represent one Sale activity. This must match the server side Sale class so to transpart
 //  through JSON.
-//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//  retainright 2010 __MyCompanyName__. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -28,27 +28,31 @@
 	NSMutableArray *images; //list of ImageInfo object
 	NSString *phone;
 	NSString *email;
-	NSString *description;
+	NSString *detail;
 	NSString *status;
+	NSString *iconImageBlobKey;
+	UIImage *icon; //for display purpose only not persistened.
 }
-@property (nonatomic, copy) NSString *phone;
-@property (nonatomic, copy) NSString *email;
-@property (nonatomic, copy) NSString *saleId;
-@property (nonatomic, copy) NSString *userUniqueId;
+@property (nonatomic, retain) NSString *phone;
+@property (nonatomic, retain) NSString *email;
+@property (nonatomic, retain) NSString *saleId;
+@property (nonatomic, retain) NSString *userUniqueId;
 //@property (nonatomic, retain) NSMutableArray *items;
-@property (nonatomic, copy) NSString *startDate;
-@property (nonatomic, copy) NSString *endDate;
-@property (nonatomic, copy) NSString *latitude;
-@property (nonatomic, copy) NSString *longitude;
-@property (nonatomic, copy) NSString *address1;
-@property (nonatomic, copy) NSString *address2;
-@property (nonatomic, copy) NSString *city;
-@property (nonatomic, copy) NSString *state;
-@property (nonatomic, copy) NSString *zipcode;
-@property (nonatomic, copy) NSString *countryCode;
+@property (nonatomic, retain) NSString *startDate;
+@property (nonatomic, retain) NSString *endDate;
+@property (nonatomic, retain) NSString *latitude;
+@property (nonatomic, retain) NSString *longitude;
+@property (nonatomic, retain) NSString *address1;
+@property (nonatomic, retain) NSString *address2;
+@property (nonatomic, retain) NSString *city;
+@property (nonatomic, retain) NSString *state;
+@property (nonatomic, retain) NSString *zipcode;
+@property (nonatomic, retain) NSString *countryCode;
 @property (nonatomic, retain) NSMutableArray *images;
-@property (nonatomic, copy) NSString *description;
-@property (nonatomic, copy) NSString *status;
+@property (nonatomic, retain) NSString *detail;
+@property (nonatomic, retain) NSString *status;
+@property (nonatomic, retain) NSString *iconImageBlobKey;
+@property (nonatomic, retain) UIImage *icon;
 - (NSDictionary*)toDictionary;
 - (void)fromDictionary:(NSDictionary*)dictionary;
 - (NSString*)toJson;

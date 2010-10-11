@@ -27,7 +27,6 @@
 		AD4C44F9125636B5007F7BCF /* SalesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4C44F8125636B5007F7BCF /* SalesTableViewCell.m */; };
 		AD4C450212563781007F7BCF /* SalesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4C450012563781007F7BCF /* SalesTableViewController.m */; };
 		AD4C450312563781007F7BCF /* SalesTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD4C450112563781007F7BCF /* SalesTableViewController.xib */; };
-		AD4C45CE12564F8D007F7BCF /* SaleForView.m in Sources */ = {isa = PBXBuildFile; fileRef = AD4C45CD12564F8D007F7BCF /* SaleForView.m */; };
 		AD4C45E3125651A5007F7BCF /* Placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = AD4C45E2125651A5007F7BCF /* Placeholder.png */; };
 		AD7F159612524872007A7CEB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD7F159512524872007A7CEB /* UIKit.framework */; };
 		AD7F15981252487B007A7CEB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD7F15971252487B007A7CEB /* CoreGraphics.framework */; };
@@ -64,9 +63,18 @@
 		AD7F1E3E12550316007A7CEB /* GTMIPhoneUnitTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7F1E3812550316007A7CEB /* GTMIPhoneUnitTestMain.m */; };
 		AD7F1E4C125503F6007A7CEB /* DateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7F1E4B125503F6007A7CEB /* DateTest.m */; };
 		AD7F1EB1125508F6007A7CEB /* SaleItemParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7F1EB0125508F6007A7CEB /* SaleItemParserTest.m */; };
+		AD96E95A126394C600726821 /* mylocal.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = AD96E959126394C600726821 /* mylocal.xcdatamodel */; };
+		AD96E9621263976400726821 /* CoreSale.m in Sources */ = {isa = PBXBuildFile; fileRef = AD96E95F1263976400726821 /* CoreSale.m */; };
+		AD96E9741263986400726821 /* CoreImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AD96E9731263986400726821 /* CoreImageInfo.m */; };
+		AD96E9A51263A1EB00726821 /* CorePhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = AD96E9A41263A1EB00726821 /* CorePhoto.m */; };
 		ADA2694B125E580A00B2C552 /* DownloaderQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA2694A125E580A00B2C552 /* DownloaderQueue.m */; };
 		ADA26958125E5A1400B2C552 /* DownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA26957125E5A1400B2C552 /* DownloadOperation.m */; };
+		ADAD8F4C1260154A007F3DD8 /* LocalImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = ADAD8F4B1260154A007F3DD8 /* LocalImageCache.m */; };
+		ADAD8F98126020B6007F3DD8 /* UIImageToDataTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = ADAD8F96126020B6007F3DD8 /* UIImageToDataTransformer.m */; };
+		ADAD8FB3126027E1007F3DD8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADAD8FB2126027E1007F3DD8 /* CoreData.framework */; };
 		ADD6C415125E723500763F32 /* UrlDownloaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD6C414125E723500763F32 /* UrlDownloaderOperation.m */; };
+		ADD6C4BD125E809700763F32 /* SaleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADD6C4BB125E809700763F32 /* SaleDetailViewController.m */; };
+		ADD6C4BE125E809700763F32 /* SaleDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ADD6C4BC125E809700763F32 /* SaleDetailViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -111,8 +119,6 @@
 		AD4C44FF12563781007F7BCF /* SalesTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalesTableViewController.h; sourceTree = "<group>"; };
 		AD4C450012563781007F7BCF /* SalesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalesTableViewController.m; sourceTree = "<group>"; };
 		AD4C450112563781007F7BCF /* SalesTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SalesTableViewController.xib; sourceTree = "<group>"; };
-		AD4C45CC12564F8D007F7BCF /* SaleForView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaleForView.h; sourceTree = "<group>"; };
-		AD4C45CD12564F8D007F7BCF /* SaleForView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaleForView.m; sourceTree = "<group>"; };
 		AD4C45E2125651A5007F7BCF /* Placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Placeholder.png; sourceTree = "<group>"; };
 		AD7F158D125247F6007A7CEB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AD7F159512524872007A7CEB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -176,12 +182,27 @@
 		AD7F1E3B12550316007A7CEB /* GTMObjC2Runtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMObjC2Runtime.h; sourceTree = "<group>"; };
 		AD7F1E4B125503F6007A7CEB /* DateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateTest.m; sourceTree = "<group>"; };
 		AD7F1EB0125508F6007A7CEB /* SaleItemParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaleItemParserTest.m; sourceTree = "<group>"; };
+		AD96E959126394C600726821 /* mylocal.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = mylocal.xcdatamodel; sourceTree = "<group>"; };
+		AD96E95E1263976400726821 /* CoreSale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreSale.h; sourceTree = "<group>"; };
+		AD96E95F1263976400726821 /* CoreSale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreSale.m; sourceTree = "<group>"; };
+		AD96E9721263986400726821 /* CoreImageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreImageInfo.h; sourceTree = "<group>"; };
+		AD96E9731263986400726821 /* CoreImageInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreImageInfo.m; sourceTree = "<group>"; };
+		AD96E9A31263A1EB00726821 /* CorePhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorePhoto.h; sourceTree = "<group>"; };
+		AD96E9A41263A1EB00726821 /* CorePhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorePhoto.m; sourceTree = "<group>"; };
 		ADA26949125E580A00B2C552 /* DownloaderQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloaderQueue.h; sourceTree = "<group>"; };
 		ADA2694A125E580A00B2C552 /* DownloaderQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloaderQueue.m; sourceTree = "<group>"; };
 		ADA26956125E5A1400B2C552 /* DownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadOperation.h; sourceTree = "<group>"; };
 		ADA26957125E5A1400B2C552 /* DownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadOperation.m; sourceTree = "<group>"; };
+		ADAD8F4A1260154A007F3DD8 /* LocalImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalImageCache.h; sourceTree = "<group>"; };
+		ADAD8F4B1260154A007F3DD8 /* LocalImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalImageCache.m; sourceTree = "<group>"; };
+		ADAD8F96126020B6007F3DD8 /* UIImageToDataTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageToDataTransformer.m; sourceTree = "<group>"; };
+		ADAD8F97126020B6007F3DD8 /* UIImageToDataTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageToDataTransformer.h; sourceTree = "<group>"; };
+		ADAD8FB2126027E1007F3DD8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		ADD6C413125E723500763F32 /* UrlDownloaderOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UrlDownloaderOperation.h; sourceTree = "<group>"; };
 		ADD6C414125E723500763F32 /* UrlDownloaderOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UrlDownloaderOperation.m; sourceTree = "<group>"; };
+		ADD6C4BA125E809700763F32 /* SaleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SaleDetailViewController.h; sourceTree = "<group>"; };
+		ADD6C4BB125E809700763F32 /* SaleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaleDetailViewController.m; sourceTree = "<group>"; };
+		ADD6C4BC125E809700763F32 /* SaleDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SaleDetailViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +216,7 @@
 				AD7F159C12524885007A7CEB /* MapKit.framework in Frameworks */,
 				AD7F159D1252488A007A7CEB /* Foundation.framework in Frameworks */,
 				AD7F16ED12524FE4007A7CEB /* libStaticLibrary.a in Frameworks */,
+				ADAD8FB3126027E1007F3DD8 /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +305,7 @@
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
+				ADAD8FB2126027E1007F3DD8 /* CoreData.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -290,15 +313,15 @@
 		AD7F19DB1252A6C6007A7CEB /* model */ = {
 			isa = PBXGroup;
 			children = (
+				AD96E9581263949500726821 /* generated */,
 				AD7F1EB0125508F6007A7CEB /* SaleItemParserTest.m */,
 				AD7F19901252A027007A7CEB /* SaleItem.h */,
 				AD7F19911252A027007A7CEB /* SaleItem.m */,
 				AD7F19931252A05F007A7CEB /* Sale.h */,
 				AD7F19941252A05F007A7CEB /* Sale.m */,
-				AD4C45CC12564F8D007F7BCF /* SaleForView.h */,
-				AD4C45CD12564F8D007F7BCF /* SaleForView.m */,
 				AD18F05F125E3368006113E1 /* ImageInfo.h */,
 				AD18F060125E3368006113E1 /* ImageInfo.m */,
+				AD96E959126394C600726821 /* mylocal.xcdatamodel */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -306,12 +329,16 @@
 		AD7F19DC1252A6D8007A7CEB /* helper */ = {
 			isa = PBXGroup;
 			children = (
+				ADAD8F96126020B6007F3DD8 /* UIImageToDataTransformer.m */,
+				ADAD8F97126020B6007F3DD8 /* UIImageToDataTransformer.h */,
 				ADD6C413125E723500763F32 /* UrlDownloaderOperation.h */,
 				ADD6C414125E723500763F32 /* UrlDownloaderOperation.m */,
 				AC78F0140FC44F92000E9EFA /* MyCLController.h */,
 				AC78F0150FC44F92000E9EFA /* MyCLController.m */,
 				ADA26949125E580A00B2C552 /* DownloaderQueue.h */,
 				ADA2694A125E580A00B2C552 /* DownloaderQueue.m */,
+				ADAD8F4A1260154A007F3DD8 /* LocalImageCache.h */,
+				ADAD8F4B1260154A007F3DD8 /* LocalImageCache.m */,
 			);
 			name = helper;
 			sourceTree = "<group>";
@@ -331,8 +358,6 @@
 		AD7F1AE01253B094007A7CEB /* lists */ = {
 			isa = PBXGroup;
 			children = (
-				AC7A0B8E0FCDC6860098020C /* SaleItemCell.h */,
-				AC7A0B8F0FCDC6860098020C /* SaleItemCell.m */,
 				AD4C44F41256358F007F7BCF /* SalesTableViewCell.xib */,
 				AD4C44F7125636B5007F7BCF /* SalesTableViewCell.h */,
 				AD4C44F8125636B5007F7BCF /* SalesTableViewCell.m */,
@@ -352,6 +377,9 @@
 				AC4145990FCC97BE007BDD39 /* DatePickerView.m */,
 				AC75C1A80FBB3093008A88EC /* LocalItemDetailViewController.h */,
 				AC75C1A90FBB3093008A88EC /* LocalItemDetailViewController.m */,
+				ADD6C4BA125E809700763F32 /* SaleDetailViewController.h */,
+				ADD6C4BB125E809700763F32 /* SaleDetailViewController.m */,
+				ADD6C4BC125E809700763F32 /* SaleDetailViewController.xib */,
 			);
 			name = detail;
 			sourceTree = "<group>";
@@ -441,9 +469,24 @@
 			name = GTM;
 			sourceTree = "<group>";
 		};
+		AD96E9581263949500726821 /* generated */ = {
+			isa = PBXGroup;
+			children = (
+				AD96E9A31263A1EB00726821 /* CorePhoto.h */,
+				AD96E9A41263A1EB00726821 /* CorePhoto.m */,
+				AD96E9721263986400726821 /* CoreImageInfo.h */,
+				AD96E9731263986400726821 /* CoreImageInfo.m */,
+				AD96E95E1263976400726821 /* CoreSale.h */,
+				AD96E95F1263976400726821 /* CoreSale.m */,
+			);
+			name = generated;
+			sourceTree = "<group>";
+		};
 		ADD6C478125E7A7700763F32 /* deprecated */ = {
 			isa = PBXGroup;
 			children = (
+				AC7A0B8E0FCDC6860098020C /* SaleItemCell.h */,
+				AC7A0B8F0FCDC6860098020C /* SaleItemCell.m */,
 				ADA26956125E5A1400B2C552 /* DownloadOperation.h */,
 				ADA26957125E5A1400B2C552 /* DownloadOperation.m */,
 				AD7F19ED1252A837007A7CEB /* IconDownloader.h */,
@@ -515,6 +558,7 @@
 				AD4C44F51256358F007F7BCF /* SalesTableViewCell.xib in Resources */,
 				AD4C450312563781007F7BCF /* SalesTableViewController.xib in Resources */,
 				AD4C45E3125651A5007F7BCF /* Placeholder.png in Resources */,
+				ADD6C4BE125E809700763F32 /* SaleDetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -564,11 +608,17 @@
 				AD7F1EB1125508F6007A7CEB /* SaleItemParserTest.m in Sources */,
 				AD4C44F9125636B5007F7BCF /* SalesTableViewCell.m in Sources */,
 				AD4C450212563781007F7BCF /* SalesTableViewController.m in Sources */,
-				AD4C45CE12564F8D007F7BCF /* SaleForView.m in Sources */,
 				AD18F061125E3368006113E1 /* ImageInfo.m in Sources */,
 				ADA2694B125E580A00B2C552 /* DownloaderQueue.m in Sources */,
 				ADA26958125E5A1400B2C552 /* DownloadOperation.m in Sources */,
 				ADD6C415125E723500763F32 /* UrlDownloaderOperation.m in Sources */,
+				ADD6C4BD125E809700763F32 /* SaleDetailViewController.m in Sources */,
+				ADAD8F4C1260154A007F3DD8 /* LocalImageCache.m in Sources */,
+				ADAD8F98126020B6007F3DD8 /* UIImageToDataTransformer.m in Sources */,
+				AD96E95A126394C600726821 /* mylocal.xcdatamodel in Sources */,
+				AD96E9621263976400726821 /* CoreSale.m in Sources */,
+				AD96E9741263986400726821 /* CoreImageInfo.m in Sources */,
+				AD96E9A51263A1EB00726821 /* CorePhoto.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

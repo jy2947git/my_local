@@ -12,24 +12,27 @@
 #import "CoreLocation/CLLocation.h"
 #import "LocalItemDetailViewController.h"
 #import "mylocalAppDelegate.h"
-#import "SaleForView.h"
 #import "ImageInfo.h"
 #import "DownloaderQueue.h"
 #import "UrlDownloaderOperation.h"
 #import "JSON.h"
+#import "SaleDetailViewController.h"
+#import "LocalImageCache.h"
+#import "Sale.h"
 #define MetersOfOneMile 1609.344
 
 //private methods
 @interface SalesTableViewController ()
-	CLLocationDistance getDistanceBetween(CLLocation *c1, CLLocation *c2);
-	- (NSArray *)sortedSales;
-	-(void)downloadImagesForOnScreenRows;
-	-(void)startImageDownload:(SaleForView*)sale forIndexPath:(NSIndexPath*)indexPath;
-    -(void)dowloadSaleItemsFromLocation:(CLLocation *)location;
+CLLocationDistance getDistanceBetween(CLLocation *c1, CLLocation *c2);
+- (NSArray *)sortedSalesFrom:(NSArray*)sales;
+-(void)downloadImagesForOnScreenRows;
+-(void)startImageDownload:(Sale*)sale forIndexPath:(NSIndexPath*)indexPath;
+-(void)dowloadSaleItemsFromLocation:(CLLocation *)location;
+- (void)getImageForSale:(Sale*)sale atCell:(SalesTableViewCell*)cell withIndexPath:(NSIndexPath*)indexPath;
 @end
 
 @implementation SalesTableViewController
-@synthesize saleCell,entries, imageDownloadsInProgress, queue, currentLocation, lastQueryLocation;
+@synthesize saleCell,entries, imageDownloadsInProgress, queue, currentLocation, lastQueryLocation, refreshSalesTimer;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -58,6 +61,15 @@ BOOL isRunning;
 	//start updating location
 	[[MyCLController sharedInstance] registerListener:self];
 	[[MyCLController sharedInstance] startUpdateLocation];
+	//set timer to check sales every minute
+	if (refreshSalesTimer!=nil) {
+		[refreshSalesTimer invalidate];
+	}
+	refreshSalesTimer = [NSTimer scheduledTimerWithTimeInterval:60.0
+														 target:self
+													   selector:@selector(timedRefreshSales:)
+													   userInfo:nil
+														repeats:YES];
 }
 
 /*
@@ -142,25 +154,34 @@ BOOL isRunning;
 			[[NSBundle mainBundle] loadNibNamed:@"SalesTableViewCell" owner:self options:nil];
 		}
 		//assign the Sale to the saleCell
-		SaleForView *sale = [self.entries objectAtIndex:indexPath.row];
+		Sale *sale = [self.entries objectAtIndex:indexPath.row];
 		[saleCell setSale:sale];
 		//note the distance is controller by the TableViewControoler
 		[saleCell setDistance:getDistanceBetween(self.currentLocation, [[[CLLocation alloc] initWithLatitude:[sale.latitude doubleValue] longitude:[sale.longitude doubleValue]] autorelease])/MetersOfOneMile];
-		if (!sale.icon) {
-			if (self.tableView.dragging == NO && self.tableView.decelerating==NO) {
-				[self startImageDownload:sale forIndexPath:indexPath];
-			}
-			//placeholder for now
-			saleCell.icon.image=[UIImage imageNamed:@"Placeholder.png"];
-		}else{
-			saleCell.icon.image=sale.icon; 
-		}
+		[self getImageForSale:sale atCell:saleCell withIndexPath:indexPath];
 		return saleCell;
 	}
 		 
 }
 
-
+- (void)getImageForSale:(Sale*)sale atCell:(SalesTableViewCell*)cell withIndexPath:(NSIndexPath*)indexPath{
+	if (sale.icon) {
+		cell.icon.image=sale.icon;
+	}else{
+		UIImage *localImage = [LocalImageCache getImageFromKey:sale.iconImageBlobKey];
+		if (localImage) {
+			sale.icon=localImage;
+			cell.icon.image=sale.icon;
+			return;
+		}else {
+			//use placeholder image and queue download task
+			cell.icon.image=[UIImage imageNamed:@"Placeholder.png"];
+			if (self.tableView.dragging == NO && self.tableView.decelerating==NO) {
+				[self startImageDownload:sale forIndexPath:indexPath];
+			}
+		}
+	}
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -239,11 +260,14 @@ BOOL isRunning;
 - (void)viewDidUnload {
 	[[MyCLController sharedInstance] stopUpdateLocation];
 	[[MyCLController sharedInstance] deregisterListener:self];
-
+	if (refreshSalesTimer!=nil) {
+		[refreshSalesTimer invalidate];
+	}
 }
 
 
 - (void)dealloc {
+	[refreshSalesTimer release];
 	[queue release];
 	[saleCell release];
 	[entries release];
@@ -280,8 +304,8 @@ CLLocationDistance getDistanceBetween(CLLocation *c1, CLLocation *c2){
 	return 0;
 }
 
-- (NSArray *)sortedSales {
-    return [self.entries sortedArrayUsingComparator:(NSComparator)^(id data1, id data2){
+- (NSArray *)sortedSalesFrom:(NSArray*)sales {
+    return [sales sortedArrayUsingComparator:(NSComparator)^(id data1, id data2){
         Sale *itemData1 = (Sale*)data1;
 		Sale *itemData2 = (Sale*)data2;
 		CLLocation *me = currentLocation;
@@ -309,34 +333,49 @@ CLLocationDistance getDistanceBetween(CLLocation *c1, CLLocation *c2){
 	if ([self.entries count]>0) {
 		NSArray *visiblePaths = [self.tableView indexPathsForVisibleRows];
 		for (NSIndexPath *indexPath in visiblePaths) {
-			SaleForView *sale = [self.entries objectAtIndex:indexPath.row];
+			Sale *sale = [self.entries objectAtIndex:indexPath.row];
 			DebugLog(@"downloading icon image for sale %@ at %@", [sale saleId], indexPath);
-			[self startImageDownload:sale forIndexPath:indexPath];
+			[self getImageForSale:sale atCell:(SalesTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath] withIndexPath:indexPath];
 		}
 	}
 }
 //download icon image of given row
--(void)startImageDownload:(SaleForView*)sale forIndexPath:(NSIndexPath*)indexPath{
-	if (!sale.iconUrl) {
-		//first query the image url of the sale
-		DebugLog(@"trying to query the images of the sale");
-		NSString *messageString = [NSString stringWithFormat:@"token=%@&command=images&id=%@",requestToken,sale.saleId];
-		NSString *urlString = [NSString stringWithFormat:@"http://%@/yardsale?%@",serverHost, messageString];
-		NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"imagesOfSale",@"identifier", indexPath, @"indexPath", nil];
-		//DownloadOperation *queryImageOperation = [[DownloadOperation alloc] initWithUserInfo:userInfo url:urlString delegate:self];
-		UrlDownloaderOperation *operation = [[UrlDownloaderOperation alloc] initWithUrl:[NSURL URLWithString:urlString]   userInfo:userInfo delegate:self];
-		[self.queue enqueue:operation];
-		[operation release];
+-(void)startImageDownload:(Sale*)sale forIndexPath:(NSIndexPath*)indexPath{
+	if (sale.icon!=nil) {
+		//we already have the image. This happens when the user scroll the table view which trigger to downloadImagesOnVisibleScreen
 		return;
-	}else {
+	}else if (sale.iconImageBlobKey!=nil){
+		//download image
+		if ([imageDownloadsInProgress objectForKey:sale.saleId]) {
+			DebugLog(@"already in process, skip");
+			return;
+		}
 		DebugLog(@"downloading icon image for sale %@ at %i %i", [sale saleId], indexPath.row, indexPath.section);
-		NSString *urlString = sale.iconUrl;
-		NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"icon",@"identifier", indexPath, @"indexPath", nil];
+		[imageDownloadsInProgress setObject:[NSNumber numberWithBool:YES] forKey:sale.saleId];
+		NSString *urlString =  [NSString stringWithFormat:@"http://%@/BlobDataServlet?blobKey=%@",serverHost, sale.iconImageBlobKey];
+		NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"icon",@"identifier", indexPath, @"indexPath", sale.iconImageBlobKey,@"blobKey",  nil];
 		//DownloadOperation *queryImageOperation = [[DownloadOperation alloc] initWithUserInfo:userInfo url:urlString delegate:self];
 		UrlDownloaderOperation *operation = [[UrlDownloaderOperation alloc] initWithUrl:[NSURL URLWithString:urlString]   userInfo:userInfo delegate:self];
 		[self.queue enqueue:operation];
 		[operation release];
+	}else {
+		DebugLog(@"sale.iconImageBlobKey is null, no image for display");
+		return;
 	}
+
+
+//	
+//		//first query the image url of the sale
+//		DebugLog(@"trying to query the images of the sale");
+//		NSString *messageString = [NSString stringWithFormat:@"token=%@&command=images&id=%@",requestToken,sale.saleId];
+//		NSString *urlString = [NSString stringWithFormat:@"http://%@/yardsale?%@",serverHost, messageString];
+//		NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:@"imagesOfSale",@"identifier", indexPath, @"indexPath", nil];
+//		//DownloadOperation *queryImageOperation = [[DownloadOperation alloc] initWithUserInfo:userInfo url:urlString delegate:self];
+//		UrlDownloaderOperation *operation = [[UrlDownloaderOperation alloc] initWithUrl:[NSURL URLWithString:urlString]   userInfo:userInfo delegate:self];
+//		[self.queue enqueue:operation];
+//		[operation release];
+//		return;
+//	
 
 	
 }
@@ -346,15 +385,18 @@ CLLocationDistance getDistanceBetween(CLLocation *c1, CLLocation *c2){
 - (void)downloadOperationFinishedWithData:(NSData*)theData userInfo:(NSDictionary*)userInfo{
 	NSIndexPath *indexPath = [userInfo objectForKey:@"indexPath"];
 	if ([[userInfo valueForKey:@"identifier"] isEqualToString:@"icon"]) {
-		//get icon image and redisplay cell
+		Sale *sale = [self.entries objectAtIndex:indexPath.row];
+		[imageDownloadsInProgress removeObjectForKey:sale.saleId];
+		//refresh the icon image of the particular row
+		UIImage *image = [UIImage imageWithData:theData];
+		sale.icon=image;
+		//save to local
+		[LocalImageCache saveImage:image withKey:[userInfo valueForKey:@"blobKey"]];
+		//redisplay cell
 		SalesTableViewCell *cell = (SalesTableViewCell*)[self.tableView cellForRowAtIndexPath:indexPath];
 		if (!cell) {
 			DebugLog(@"didnt find the cell!");
 		}else {
-			//refresh the icon image of the particular row
-			SaleForView *sale = [self.entries objectAtIndex:indexPath.row];
-			UIImage *image = [UIImage imageWithData:theData];
-			sale.icon=image;
 			cell.icon.image=sale.icon;
 		}
 	}else {
@@ -364,35 +406,32 @@ CLLocationDistance getDistanceBetween(CLLocation *c1, CLLocation *c2){
 		DebugLog(@"reply:%@", replyString);
 		if ([[result valueForKey:@"status"] isEqualToString:@"good"]) {
 			if ([[userInfo valueForKey:@"identifier"] isEqualToString:@"sales"]) {
-				
+				isRunning=NO;
 				//process sales data, and populdate the entries
 				NSArray *data = [result objectForKey:@"data"]; //array of dictionary of Sale
+				NSMutableArray *sales = [[NSMutableArray alloc] init];
 				for (NSDictionary *saledic in data) {
-					SaleForView *sale = [[[SaleForView alloc] init] autorelease];
+					Sale *sale = [[[Sale alloc] init] autorelease];
 					[sale fromDictionary:saledic];
-					[self.entries addObject:sale];
+					[sales addObject:sale];
 				}
 				//reload
 				//order by distance
-				NSArray *sortedSales =[self sortedSales];
+				NSArray *sortedSales =[self sortedSalesFrom:sales];
 				[self.entries removeAllObjects];
 				[self.entries addObjectsFromArray:sortedSales];
 				[self.tableView reloadData];
+				[sales release];
 			}else if ([[userInfo valueForKey:@"identifier"] isEqualToString:@"imagesOfSale"]) {
 				NSString *replyString = [[NSString alloc] initWithData:theData encoding:NSUTF8StringEncoding];
 				DebugLog(@"reply:%@", replyString);
 				NSArray *data = [result objectForKey:@"data"]; //array of dictionary of ImageInfo
-				SaleForView *sale = [self.entries objectAtIndex:indexPath.row];
+				Sale *sale = [self.entries objectAtIndex:indexPath.row];
 				for (NSDictionary *imageInfoDic in data) {
 					ImageInfo *image = [[[ImageInfo alloc] init] autorelease];
 					[image fromDictionary:imageInfoDic];
 					//fill the sale
 					[sale.images addObject:image];
-				}
-				if ([sale.images count]>0) {
-					sale.iconUrl= [NSString stringWithFormat:@"http://%@/BlobDataServlet?blobKey=%@",serverHost, [[sale.images objectAtIndex:0] imageIconBlobKey]];
-					//now queue up to download icon
-					[self startImageDownload:sale forIndexPath:indexPath];
 				}
 			}
 		}
@@ -402,7 +441,13 @@ CLLocationDistance getDistanceBetween(CLLocation *c1, CLLocation *c2){
 	
 }
 - (void)downloadOperationFinishedWithError:(NSError*)error userInfo:(NSDictionary*)userInfo{
+	NSIndexPath *indexPath = [userInfo objectForKey:@"indexPath"];
+	isRunning=NO;
 	NSLog(@"failed to download %@ %@",[userInfo valueForKey:@"identifier"], [error localizedDescription]);
+	if ([[userInfo valueForKey:@"identifier"] isEqualToString:@"icon"]) {
+		Sale *sale = [self.entries objectAtIndex:indexPath.row];
+		[imageDownloadsInProgress removeObjectForKey:sale.saleId];
+	}
 }
 
 
@@ -422,6 +467,17 @@ CLLocationDistance getDistanceBetween(CLLocation *c1, CLLocation *c2){
 -(void)newError:(NSString *)text{
 	//failed to locate
 	DebugLog(@"Failed with location manager %@", text);
+}
+
+-(void)addButtonWasPressed{
+	SaleDetailViewController *vc = [[SaleDetailViewController alloc] initWithNibName:@"SaleDetailViewController" bundle:nil];
+	[self.navigationController pushViewController:vc animated:YES];
+	[vc release];
+}
+
+- (void)timedRefreshSales:(NSTimer*)timer{
+	//enqueue a sales-download task
+	[self dowloadSaleItemsFromLocation:self.currentLocation];
 }
 @end
 

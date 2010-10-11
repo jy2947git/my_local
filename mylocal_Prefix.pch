@@ -5,8 +5,10 @@
 #ifdef __OBJC__
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 #import"DebugLog.h"
 #endif
+
 #ifdef DEBUG
 
 #define DebugLog(args...) _DebugLog(__FILE__,__LINE__,__PRETTY_FUNCTION__,args);

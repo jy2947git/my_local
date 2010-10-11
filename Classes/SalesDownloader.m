@@ -10,7 +10,7 @@
 #import "GlobalHeader.h"
 #import "CoreLocation/CLLocation.h"
 #import "JSON.h"
-#import "SaleForView.h"
+#import "Sale.h"
 #import "ImageInfo.h"
 
 NSString *SaleItemsDownloadFinished = @"SaleItemsDownloadFinished";
@@ -144,7 +144,7 @@ static BOOL running;
 		//success
 		NSArray *data = [result objectForKey:@"data"]; //array of dictionary of Sale
 		for (NSDictionary *saledic in data) {
-			SaleForView *sale = [[[SaleForView alloc] init] autorelease];
+			Sale *sale = [[[Sale alloc] init] autorelease];
 			[sale fromDictionary:saledic];
 			[self.items addObject:sale];
 		}
