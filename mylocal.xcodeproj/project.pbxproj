@@ -67,6 +67,7 @@
 		AD96E9621263976400726821 /* CoreSale.m in Sources */ = {isa = PBXBuildFile; fileRef = AD96E95F1263976400726821 /* CoreSale.m */; };
 		AD96E9741263986400726821 /* CoreImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AD96E9731263986400726821 /* CoreImageInfo.m */; };
 		AD96E9A51263A1EB00726821 /* CorePhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = AD96E9A41263A1EB00726821 /* CorePhoto.m */; };
+		AD96EA9F1264B77800726821 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD96EA9E1264B77800726821 /* iAd.framework */; };
 		ADA2694B125E580A00B2C552 /* DownloaderQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA2694A125E580A00B2C552 /* DownloaderQueue.m */; };
 		ADA26958125E5A1400B2C552 /* DownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA26957125E5A1400B2C552 /* DownloadOperation.m */; };
 		ADAD8F4C1260154A007F3DD8 /* LocalImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = ADAD8F4B1260154A007F3DD8 /* LocalImageCache.m */; };
@@ -189,6 +190,7 @@
 		AD96E9731263986400726821 /* CoreImageInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreImageInfo.m; sourceTree = "<group>"; };
 		AD96E9A31263A1EB00726821 /* CorePhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CorePhoto.h; sourceTree = "<group>"; };
 		AD96E9A41263A1EB00726821 /* CorePhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CorePhoto.m; sourceTree = "<group>"; };
+		AD96EA9E1264B77800726821 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		ADA26949125E580A00B2C552 /* DownloaderQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloaderQueue.h; sourceTree = "<group>"; };
 		ADA2694A125E580A00B2C552 /* DownloaderQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloaderQueue.m; sourceTree = "<group>"; };
 		ADA26956125E5A1400B2C552 /* DownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadOperation.h; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 				AD7F159D1252488A007A7CEB /* Foundation.framework in Frameworks */,
 				AD7F16ED12524FE4007A7CEB /* libStaticLibrary.a in Frameworks */,
 				ADAD8FB3126027E1007F3DD8 /* CoreData.framework in Frameworks */,
+				AD96EA9F1264B77800726821 /* iAd.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +309,7 @@
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 				ADAD8FB2126027E1007F3DD8 /* CoreData.framework */,
+				AD96EA9E1264B77800726821 /* iAd.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -334,6 +338,7 @@
 				ADD6C413125E723500763F32 /* UrlDownloaderOperation.h */,
 				ADD6C414125E723500763F32 /* UrlDownloaderOperation.m */,
 				AC78F0140FC44F92000E9EFA /* MyCLController.h */,
+				ADD6C4BA125E809700763F32 /* SaleDetailViewController.h */,
 				AC78F0150FC44F92000E9EFA /* MyCLController.m */,
 				ADA26949125E580A00B2C552 /* DownloaderQueue.h */,
 				ADA2694A125E580A00B2C552 /* DownloaderQueue.m */,
@@ -377,7 +382,6 @@
 				AC4145990FCC97BE007BDD39 /* DatePickerView.m */,
 				AC75C1A80FBB3093008A88EC /* LocalItemDetailViewController.h */,
 				AC75C1A90FBB3093008A88EC /* LocalItemDetailViewController.m */,
-				ADD6C4BA125E809700763F32 /* SaleDetailViewController.h */,
 				ADD6C4BB125E809700763F32 /* SaleDetailViewController.m */,
 				ADD6C4BC125E809700763F32 /* SaleDetailViewController.xib */,
 			);

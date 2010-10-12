@@ -8,7 +8,7 @@
 
 #import "CoreImageInfo.h"
 
-#import "CoreSale.h"
+#import "UIImageToDataTransformer.h"
 
 @implementation CoreImageInfo 
 
@@ -16,5 +16,10 @@
 @dynamic image;
 @dynamic blobKey;
 @dynamic sale;
-
++ (void)initialize {
+	if (self == [CoreImageInfo class]) {
+		UIImageToDataTransformer *transformer = [[UIImageToDataTransformer alloc] init];
+		[NSValueTransformer setValueTransformer:transformer forName:@"UIImageToDataTransformer"];
+	}
+}
 @end

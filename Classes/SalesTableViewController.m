@@ -65,7 +65,7 @@ BOOL isRunning;
 	if (refreshSalesTimer!=nil) {
 		[refreshSalesTimer invalidate];
 	}
-	refreshSalesTimer = [NSTimer scheduledTimerWithTimeInterval:60.0
+	refreshSalesTimer = [NSTimer scheduledTimerWithTimeInterval:120.0 //refresh after 120 seconds
 														 target:self
 													   selector:@selector(timedRefreshSales:)
 													   userInfo:nil
@@ -448,6 +448,9 @@ CLLocationDistance getDistanceBetween(CLLocation *c1, CLLocation *c2){
 		Sale *sale = [self.entries objectAtIndex:indexPath.row];
 		[imageDownloadsInProgress removeObjectForKey:sale.saleId];
 	}
+	//reload
+	[self.tableView reloadData];
+	//requeue the request...
 }
 
 

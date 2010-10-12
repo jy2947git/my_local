@@ -8,30 +8,23 @@
 
 #import <UIKit/UIKit.h>
 #import "MapKit/MKReverseGeocoder.h"
+#import <iAd/iAd.h>
+
 @class CLLocation;
-@interface SaleDetailViewController : UIViewController <MKReverseGeocoderDelegate>{
+@class ADBannerView;
+@interface SaleDetailViewController : UIViewController <MKReverseGeocoderDelegate, ADBannerViewDelegate>{
 	UILabel *addressLabel;
-	UIImageView *icon0;
-	UIImageView *icon1;
-	UIImageView *icon2;
-	UIImageView *icon3;
-	UIImageView *icon4;
-	UIImageView *icon5;
-	UIImageView *icon6;
-	UIImageView *icon7;
-	UIImageView *icon8;
+	NSMutableArray *imageViews;
 	CLLocation *myLocation;
+	ADBannerView *adView;
+	BOOL bannerIsVisible;
+	UIImageView *photoGrid;
 }
+@property(nonatomic, assign) BOOL bannerIsVisible;
 @property(nonatomic, retain) IBOutlet UILabel *addressLabel;
-@property(nonatomic, retain) IBOutlet UIImageView *icon0;
-@property(nonatomic, retain) IBOutlet UIImageView *icon1;
-@property(nonatomic, retain) IBOutlet UIImageView *icon2;
-@property(nonatomic, retain) IBOutlet UIImageView *icon3;
-@property(nonatomic, retain) IBOutlet UIImageView *icon4;
-@property(nonatomic, retain) IBOutlet UIImageView *icon5;
-@property(nonatomic, retain) IBOutlet UIImageView *icon6;
-@property(nonatomic, retain) IBOutlet UIImageView *icon7;
-@property(nonatomic, retain) IBOutlet UIImageView *icon8;
+@property(nonatomic, retain) NSMutableArray *imageViews;
 @property(nonatomic, retain) CLLocation *myLocation;
+@property(nonatomic, retain) ADBannerView *adView;
+@property(nonatomic, retain) IBOutlet UIImageView *photoGrid;
 - (IBAction)takePictureButtonPressed:(id)sender;
 @end

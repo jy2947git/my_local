@@ -63,7 +63,8 @@
     _isExecuting = YES;
     [self didChangeValueForKey:@"isExecuting"];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    NSURLRequest * request = [NSURLRequest requestWithURL:_url];
+    //NSURLRequest * request = [NSURLRequest requestWithURL:_url];
+	NSURLRequest *request = [NSURLRequest requestWithURL:_url cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:120];
     _connection = [[NSURLConnection alloc] initWithRequest:request
                                                   delegate:self];
     if (_connection == nil)

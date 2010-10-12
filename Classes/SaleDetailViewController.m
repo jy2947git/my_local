@@ -11,8 +11,14 @@
 #import "CoreLocation/CLLocation.h"
 #import "GlobalConfiguration.h"
 #import "MapKit/MKPlacemark.h"
+
+@interface SaleDetailViewController ()
+- (void)setUpAdView;
+- (void)setUpPhotoImagesView;
+@end
+
 @implementation SaleDetailViewController
-@synthesize myLocation, addressLabel, icon0, icon1,icon2,icon3,icon4,icon5,icon6,icon7,icon8;
+@synthesize myLocation, addressLabel, imageViews, adView, bannerIsVisible, photoGrid;
 /*
  // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
@@ -33,20 +39,13 @@
 	[appleReverseGeocoder start];
 	DebugLog(@"start reverse geocoding...");
 	[appleReverseGeocoder retain];
+	//ad view
+//	[self setUpAdView];
 	//placeholder for the 9 images
-	UIImage *placeholderImage = [UIImage imageNamed:@"placeholder.png"];
-	icon0.image=placeholderImage;
-	icon1.image=placeholderImage;
-	icon2.image=placeholderImage;
-	icon3.image=placeholderImage;
-	icon4.image=placeholderImage;
-	icon5.image=placeholderImage;
-	icon6.image=placeholderImage;
-	icon7.image=placeholderImage;
-	icon8.image=placeholderImage;
+	//set up the image view grid
+	[self setUpPhotoImagesView];
+
 }
-
-
 /*
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -55,6 +54,25 @@
 }
 */
 
+- (void)setUpPhotoImagesView{
+	UIImage *placeholderImage = [UIImage imageNamed:@"placeholder.png"];
+	//programmingly create the image-views, put in the array and add on the photo-grid
+	float imageWidth=80;
+	float imageHeight=80;
+	float space=5;
+	float spaceFromLeft=10;
+	float spaceFromTop=10;
+	for (int row=0; row<3; row++) {
+		for (int col=0; col<3; col++) {
+			CGRect frame = CGRectMake(spaceFromLeft+col*(imageWidth+space), spaceFromTop+row*(imageHeight+space), imageWidth, imageHeight);
+			UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];
+			[self.
+			imageView.image=placeholderImage;
+			[self.photoGrid addSubview:imageView];
+			
+		}
+	}
+}
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
@@ -70,17 +88,12 @@
 
 
 - (void)dealloc {
+	[photoGrid release];
 	[myLocation release];
 	[addressLabel release];
-	[icon0 release];
-	[icon1 release];
-	[icon2 release];
-	[icon3 release];
-	[icon4 release];
-	[icon5 release];
-	[icon6 release];
-	[icon7 release];
-	[icon8 release];
+	[imageViews release];
+	adView.delegate=nil;
+	[adView release];
     [super dealloc];
 }
 
@@ -98,4 +111,64 @@
 	[addressFound release];
 	[geocoder release];
 }
+	
+- (BOOL)allowActionToRun{
+	return YES;
+}
+
+
+- (void)setUpAdView{
+	adView = [[ADBannerView alloc] initWithFrame:CGRectZero];
+	adView.frame = CGRectOffset(adView.frame, 0, -50);
+	adView.requiredContentSizeIdentifiers = [NSSet setWithObject:ADBannerContentSizeIdentifier320x50];
+	adView.currentContentSizeIdentifier = ADBannerContentSizeIdentifier320x50;
+	[self.view addSubview:adView];
+	adView.delegate=self;
+	self.bannerIsVisible=NO;
+}
+
+
+- (void)bannerViewDidLoadAd:(ADBannerView *)banner
+{
+	if (!self.bannerIsVisible)
+	{
+		[UIView beginAnimations:@"animateAdBannerOn" context:NULL];
+		// banner is invisible now and moved out of the screen on 50 px
+		banner.frame = CGRectOffset(banner.frame, 0, 50);
+		[UIView commitAnimations];
+		self.bannerIsVisible = YES;
+	}
+}
+
+- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
+{
+	if (self.bannerIsVisible)
+	{
+		[UIView beginAnimations:@"animateAdBannerOff" context:NULL];
+		// banner is visible and we move it out of the screen, due to connection issue
+		banner.frame = CGRectOffset(banner.frame, 0, -50);
+		[UIView commitAnimations];
+		self.bannerIsVisible = NO;
+	}
+}
+- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave
+{
+	NSLog(@"Banner view is beginning an ad action");
+	BOOL shouldExecuteAction = YES;
+	if (!willLeave && shouldExecuteAction)
+    {
+		// stop all interactive processes in the app
+		// [video pause];
+		// [audio pause];
+    }
+	return shouldExecuteAction;
+}
+
+- (void)bannerViewActionDidFinish:(ADBannerView *)banner
+{
+	// resume everything you've stopped
+	// [video resume];
+	// [audio resume];
+}
+
 @end
