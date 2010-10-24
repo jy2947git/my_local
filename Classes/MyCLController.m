@@ -92,7 +92,7 @@ static MyCLController *sharedCLDelegate = nil;
 	didUpdateToLocation:(CLLocation *)newLocation
 		   fromLocation:(CLLocation *)oldLocation
 {
-	DebugLog(@"updated with new location");
+	DebugLog(@"updated with new location %@ ", newLocation);
 	[sharedCLDelegate.delegates makeObjectsPerformSelector:@selector(newLocationUpdateWithLocation:) withObject:newLocation];
 }
 
@@ -101,7 +101,7 @@ static MyCLController *sharedCLDelegate = nil;
 - (void)locationManager:(CLLocationManager *)manager
 	   didFailWithError:(NSError *)error
 {
-	DebugLog(@"failed");
+	DebugLog(@"failed with error %@", [error localizedDescription]);
 	NSMutableString *errorString = [[[NSMutableString alloc] init] autorelease];
 
 	if ([error domain] == kCLErrorDomain) {

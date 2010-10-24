@@ -10,11 +10,16 @@
 
 #import <Foundation/Foundation.h>
 
-
+@class CoreEvent;
+@class CorePhoto;
 @interface LocalImageCache : NSObject {
 	
 }
-+ (void)saveImage:(UIImage*)data withKey:(NSString*)key;
++ (CorePhoto*)saveImage:(UIImage*)data withKey:(NSString*)key;
 + (UIImage*)getImageFromKey:(NSString*)key;
-
++ (void)saveEvent:(CoreEvent*)event;
++ (CoreEvent*)getCurrentEditingEvent;
++ (CoreEvent*)getPendingEvent;
++ (void)saveDoneEvent:(CoreEvent*)event;
++ (CorePhoto*)createPhotoWithThumbNailImage:(UIImage*)thumbNail image:(UIImage*)img;
 @end

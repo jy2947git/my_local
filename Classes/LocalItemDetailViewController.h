@@ -16,7 +16,7 @@ enum TAG_DATE_PICKER{
 @class CLLocation;
 @class InputLabel;
 @class DatePickerView;
-@interface LocalItemDetailViewController : UIViewController <UITextViewDelegate,MKReverseGeocoderDelegate>{
+@interface LocalItemDetailViewController : UIViewController <UITextViewDelegate,MKReverseGeocoderDelegate, UINavigationControllerDelegate>{
 	IBOutlet UITextField *address;
 	IBOutlet UITextView *description;
 	IBOutlet InputLabel *startDateString;

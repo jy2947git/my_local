@@ -204,6 +204,7 @@
 	
 	if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:options error:&error]) {
         // Handle the error.
+		NSLog(@"failed to create the persistence store %@", [error localizedDescription]);
     }    
 	
     return persistentStoreCoordinator;

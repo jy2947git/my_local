@@ -62,14 +62,14 @@ BOOL isRunning;
 	[[MyCLController sharedInstance] registerListener:self];
 	[[MyCLController sharedInstance] startUpdateLocation];
 	//set timer to check sales every minute
-	if (refreshSalesTimer!=nil) {
-		[refreshSalesTimer invalidate];
-	}
-	refreshSalesTimer = [NSTimer scheduledTimerWithTimeInterval:120.0 //refresh after 120 seconds
-														 target:self
-													   selector:@selector(timedRefreshSales:)
-													   userInfo:nil
-														repeats:YES];
+//	if (refreshSalesTimer!=nil) {
+//		[refreshSalesTimer invalidate];
+//	}
+//	refreshSalesTimer = [NSTimer scheduledTimerWithTimeInterval:120.0 //refresh after 120 seconds
+//														 target:self
+//													   selector:@selector(timedRefreshSales:)
+//													   userInfo:nil
+//														repeats:YES];
 }
 
 /*
@@ -267,7 +267,6 @@ BOOL isRunning;
 
 
 - (void)dealloc {
-	[refreshSalesTimer release];
 	[queue release];
 	[saleCell release];
 	[entries release];
@@ -461,6 +460,9 @@ CLLocationDistance getDistanceBetween(CLLocation *c1, CLLocation *c2){
 		//only requery server when user moved beyond 100 meters
 		self.lastQueryLocation=location;
 		[self dowloadSaleItemsFromLocation:self.currentLocation];
+		//stop locationing
+		[[MyCLController sharedInstance] stopUpdateLocation];
+		[[MyCLController sharedInstance] deregisterListener:self];
 	}
 	
 	
@@ -473,7 +475,14 @@ CLLocationDistance getDistanceBetween(CLLocation *c1, CLLocation *c2){
 }
 
 -(void)addButtonWasPressed{
+	//create a local event object and pass to the detail view controller. We will only keep one event at any time so if the user
+	//click the "back" button from the detail screen back to the list, and click the "add" again, he will get the same existing
+	//local event object. This local object is only dismissed after he clicks the "done".
+	//the reason is we dont have to waste our server resource if user go back and forth between list and detail screens.
+	CoreEvent *_event = [LocalImageCache getCurrentEditingEvent];
 	SaleDetailViewController *vc = [[SaleDetailViewController alloc] initWithNibName:@"SaleDetailViewController" bundle:nil];
+	vc.event=_event;
+	vc.myLocation=self.currentLocation;
 	[self.navigationController pushViewController:vc animated:YES];
 	[vc release];
 }

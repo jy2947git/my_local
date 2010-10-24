@@ -2,7 +2,7 @@
 //  CorePhoto.h
 //  mylocal
 //
-//  Created by You, Jerry on 10/13/10.
+//  Created by You, Jerry on 10/11/10.
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
@@ -13,10 +13,8 @@
 {
 }
 
-@property (nonatomic, retain) NSString * thumbNailBlobKey;
-@property (nonatomic, retain) id image;
-@property (nonatomic, retain) id thumbNailImage;
 @property (nonatomic, retain) NSString * blobKey;
+@property (nonatomic, retain) id image;
 
 @end
 
