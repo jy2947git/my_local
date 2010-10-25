@@ -12,7 +12,6 @@
 
 @class GlobalConfiguration;
 @class MapViewController;
-@class LocalAdsBarController;
 @interface mylocalAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
 	UITabBarController *controllerTabBar;
@@ -25,7 +24,6 @@
 		NSMutableArray *items;
 	NSString *currentLocationAddress;
 	
-	LocalAdsBarController *adsBar;
 	//
 	//we are using CoreData framework to store Sale locally to minimize
 	//the server hit.
@@ -34,7 +32,6 @@
     NSManagedObjectContext *managedObjectContext;
 }
 
-@property(nonatomic, retain) LocalAdsBarController *adsBar;
 @property(nonatomic, retain) NSString *currentLocationAddress;
 @property(nonatomic, retain) NSMutableArray *items;
 @property(nonatomic, retain) MapViewController *controllerMap;

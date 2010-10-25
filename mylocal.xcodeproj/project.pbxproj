@@ -44,7 +44,6 @@
 		AD7F159D1252488A007A7CEB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD7F158D125247F6007A7CEB /* Foundation.framework */; };
 		AD7F16F71252512E007A7CEB /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7F16F01252512E007A7CEB /* MapViewController.m */; };
 		AD7F16F81252512E007A7CEB /* LocationPlaceMark.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7F16F21252512E007A7CEB /* LocationPlaceMark.m */; };
-		AD7F16F91252512E007A7CEB /* LocalAdsBarControler.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7F16F51252512E007A7CEB /* LocalAdsBarControler.m */; };
 		AD7F1743125259CF007A7CEB /* yard-sale-tab.png in Resources */ = {isa = PBXBuildFile; fileRef = AD7F1740125259CF007A7CEB /* yard-sale-tab.png */; };
 		AD7F1744125259CF007A7CEB /* table-cell-number.png in Resources */ = {isa = PBXBuildFile; fileRef = AD7F1741125259CF007A7CEB /* table-cell-number.png */; };
 		AD7F1745125259CF007A7CEB /* map-tab.png in Resources */ = {isa = PBXBuildFile; fileRef = AD7F1742125259CF007A7CEB /* map-tab.png */; };
@@ -72,7 +71,6 @@
 		AD7F1E4C125503F6007A7CEB /* DateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7F1E4B125503F6007A7CEB /* DateTest.m */; };
 		AD7F1EB1125508F6007A7CEB /* SaleItemParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7F1EB0125508F6007A7CEB /* SaleItemParserTest.m */; };
 		AD96E95A126394C600726821 /* mylocal.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = AD96E959126394C600726821 /* mylocal.xcdatamodel */; };
-		AD96EA9F1264B77800726821 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD96EA9E1264B77800726821 /* iAd.framework */; };
 		ADA2694B125E580A00B2C552 /* DownloaderQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA2694A125E580A00B2C552 /* DownloaderQueue.m */; };
 		ADA26958125E5A1400B2C552 /* DownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = ADA26957125E5A1400B2C552 /* DownloadOperation.m */; };
 		ADAD8F4C1260154A007F3DD8 /* LocalImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = ADAD8F4B1260154A007F3DD8 /* LocalImageCache.m */; };
@@ -153,8 +151,6 @@
 		AD7F16F11252512E007A7CEB /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		AD7F16F21252512E007A7CEB /* LocationPlaceMark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationPlaceMark.m; sourceTree = "<group>"; };
 		AD7F16F31252512E007A7CEB /* LocationPlaceMark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationPlaceMark.h; sourceTree = "<group>"; };
-		AD7F16F41252512E007A7CEB /* LocalAdsBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalAdsBarController.h; sourceTree = "<group>"; };
-		AD7F16F51252512E007A7CEB /* LocalAdsBarControler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalAdsBarControler.m; sourceTree = "<group>"; };
 		AD7F16F61252512E007A7CEB /* GlobalHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlobalHeader.h; sourceTree = "<group>"; };
 		AD7F1740125259CF007A7CEB /* yard-sale-tab.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "yard-sale-tab.png"; sourceTree = "<group>"; };
 		AD7F1741125259CF007A7CEB /* table-cell-number.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "table-cell-number.png"; sourceTree = "<group>"; };
@@ -206,7 +202,6 @@
 		AD7F1E4B125503F6007A7CEB /* DateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateTest.m; sourceTree = "<group>"; };
 		AD7F1EB0125508F6007A7CEB /* SaleItemParserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SaleItemParserTest.m; sourceTree = "<group>"; };
 		AD96E959126394C600726821 /* mylocal.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = mylocal.xcdatamodel; sourceTree = "<group>"; };
-		AD96EA9E1264B77800726821 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		ADA26949125E580A00B2C552 /* DownloaderQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloaderQueue.h; sourceTree = "<group>"; };
 		ADA2694A125E580A00B2C552 /* DownloaderQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloaderQueue.m; sourceTree = "<group>"; };
 		ADA26956125E5A1400B2C552 /* DownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadOperation.h; sourceTree = "<group>"; };
@@ -234,7 +229,6 @@
 				AD7F159C12524885007A7CEB /* MapKit.framework in Frameworks */,
 				AD7F159D1252488A007A7CEB /* Foundation.framework in Frameworks */,
 				ADAD8FB3126027E1007F3DD8 /* CoreData.framework in Frameworks */,
-				AD96EA9F1264B77800726821 /* iAd.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,12 +239,11 @@
 			isa = PBXGroup;
 			children = (
 				AD4A86EE126509D8002E76AD /* UIImage */,
-				ADD6C478125E7A7700763F32 /* deprecated */,
+				ADD6C478125E7A7700763F32 /* junk_yard_to_save_old_files */,
 				AD7F1E34125502FC007A7CEB /* GTM */,
 				AD7F1DD41254F852007A7CEB /* date */,
 				AD7F1DA51254F2A7007A7CEB /* json */,
 				AD7F1D541253EDCB007A7CEB /* google forward geocoder */,
-				AD7F1AE31253B11D007A7CEB /* ads */,
 				AD7F1AE21253B107007A7CEB /* location */,
 				AD7F1AE11253B0D2007A7CEB /* detail */,
 				AD7F1AE01253B094007A7CEB /* lists */,
@@ -324,7 +317,6 @@
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 				ADAD8FB2126027E1007F3DD8 /* CoreData.framework */,
-				AD96EA9E1264B77800726821 /* iAd.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -430,15 +422,6 @@
 			name = location;
 			sourceTree = "<group>";
 		};
-		AD7F1AE31253B11D007A7CEB /* ads */ = {
-			isa = PBXGroup;
-			children = (
-				AD7F16F41252512E007A7CEB /* LocalAdsBarController.h */,
-				AD7F16F51252512E007A7CEB /* LocalAdsBarControler.m */,
-			);
-			name = ads;
-			sourceTree = "<group>";
-		};
 		AD7F1D541253EDCB007A7CEB /* google forward geocoder */ = {
 			isa = PBXGroup;
 			children = (
@@ -502,7 +485,7 @@
 			name = GTM;
 			sourceTree = "<group>";
 		};
-		ADD6C478125E7A7700763F32 /* deprecated */ = {
+		ADD6C478125E7A7700763F32 /* junk_yard_to_save_old_files */ = {
 			isa = PBXGroup;
 			children = (
 				AD4A899412662ABB002E76AD /* CoreImageInfo.m */,
@@ -526,7 +509,7 @@
 				AD7F19DD1252A782007A7CEB /* DownloadHelper.h */,
 				AD7F19DE1252A782007A7CEB /* DownloadHelper.m */,
 			);
-			name = deprecated;
+			name = junk_yard_to_save_old_files;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -612,7 +595,6 @@
 				AC787B440FCDECF100B16391 /* ParkPlaceMark.m in Sources */,
 				AD7F16F71252512E007A7CEB /* MapViewController.m in Sources */,
 				AD7F16F81252512E007A7CEB /* LocationPlaceMark.m in Sources */,
-				AD7F16F91252512E007A7CEB /* LocalAdsBarControler.m in Sources */,
 				AD7F198F12529FBF007A7CEB /* SalesDownloader.m in Sources */,
 				AD7F19921252A027007A7CEB /* SaleItem.m in Sources */,
 				AD7F19951252A05F007A7CEB /* Sale.m in Sources */,

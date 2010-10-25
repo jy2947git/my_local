@@ -11,7 +11,6 @@
 #import "MapViewController.h"
 #import "CoreLocation/CLLocation.h"
 #import "InternetUtility.h"
-#import "LocalAdsBarController.h"
 #import "GTMIPhoneUnitTestDelegate.h"
 #import "SalesTableViewController.h"
 
@@ -26,7 +25,7 @@
 @synthesize controllerMap;
 @synthesize items;
 @synthesize currentLocationAddress;
-@synthesize adsBar;
+
 
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
@@ -89,11 +88,6 @@
 	self.controllerTabBar.selectedIndex=0;
 	[window addSubview:self.controllerTabBar.view];
 	//	[window addSubview:self.navController.view];
-	
-	LocalAdsBarController *ads = [[LocalAdsBarController alloc] init];
-	self.adsBar=ads;
-	[ads release];
-	[window addSubview:self.adsBar.view];
 }
 
 
@@ -107,7 +101,7 @@
     [managedObjectModel release];
     [persistentStoreCoordinator release];
 	
-	[adsBar release];
+
 	[currentLocationAddress release];
 		[items release];
 	[controllerMap release];

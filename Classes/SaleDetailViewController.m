@@ -23,12 +23,11 @@
 #define photo_valid 9000
 
 @interface SaleDetailViewController ()
-- (void)setUpAdView;
 - (void)setUpPhotoImagesView;
 @end
 
 @implementation SaleDetailViewController
-@synthesize tapRecognizer,myLocation, addressInput, imageViews, adView, bannerIsVisible, photoGrid, currentAddress, reverseGeocoder, summaryInput, event;
+@synthesize tapRecognizer,myLocation, addressInput, imageViews, bannerIsVisible, photoGrid, currentAddress, reverseGeocoder, summaryInput, event;
 
 
 
@@ -175,8 +174,7 @@
 	[myLocation release];
 	[addressInput release];
 	[imageViews release];
-	adView.delegate=nil;
-	[adView release];
+	
     [super dealloc];
 }
 - (IBAction)choosePhotoButtonPressed:(id)sender{
@@ -297,60 +295,6 @@
 	return YES;
 }
 
-
-- (void)setUpAdView{
-	adView = [[ADBannerView alloc] initWithFrame:CGRectZero];
-	adView.frame = CGRectOffset(adView.frame, 0, -50);
-	adView.requiredContentSizeIdentifiers = [NSSet setWithObject:ADBannerContentSizeIdentifier320x50];
-	adView.currentContentSizeIdentifier = ADBannerContentSizeIdentifier320x50;
-	[self.view addSubview:adView];
-	adView.delegate=self;
-	self.bannerIsVisible=NO;
-}
-
-
-- (void)bannerViewDidLoadAd:(ADBannerView *)banner
-{
-	if (!self.bannerIsVisible)
-	{
-		[UIView beginAnimations:@"animateAdBannerOn" context:NULL];
-		// banner is invisible now and moved out of the screen on 50 px
-		banner.frame = CGRectOffset(banner.frame, 0, 50);
-		[UIView commitAnimations];
-		self.bannerIsVisible = YES;
-	}
-}
-
-- (void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error
-{
-	if (self.bannerIsVisible)
-	{
-		[UIView beginAnimations:@"animateAdBannerOff" context:NULL];
-		// banner is visible and we move it out of the screen, due to connection issue
-		banner.frame = CGRectOffset(banner.frame, 0, -50);
-		[UIView commitAnimations];
-		self.bannerIsVisible = NO;
-	}
-}
-- (BOOL)bannerViewActionShouldBegin:(ADBannerView *)banner willLeaveApplication:(BOOL)willLeave
-{
-	NSLog(@"Banner view is beginning an ad action");
-	BOOL shouldExecuteAction = YES;
-	if (!willLeave && shouldExecuteAction)
-    {
-		// stop all interactive processes in the app
-		// [video pause];
-		// [audio pause];
-    }
-	return shouldExecuteAction;
-}
-
-- (void)bannerViewActionDidFinish:(ADBannerView *)banner
-{
-	// resume everything you've stopped
-	// [video resume];
-	// [audio resume];
-}
 
 - (void)doneButtonWasPressed:(id)sender{
 	//save the core-event

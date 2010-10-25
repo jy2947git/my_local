@@ -121,7 +121,7 @@ BOOL isRunning;
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-	return 100;
+	return 60;
 }
 
 // Customize the appearance of table view cells.
@@ -141,7 +141,8 @@ BOOL isRunning;
 			infocell.textLabel.text=@"Downloading...";
 		}else {
 			//download finished, just no result
-			infocell.textLabel.text=@"It appears there is no sale nearny you. Please check later.";
+			infocell.textLabel.font=[UIFont systemFontOfSize:12];
+			infocell.textLabel.text=@"No wedding found nearby!";
 		}
 		return infocell;
 	}else {

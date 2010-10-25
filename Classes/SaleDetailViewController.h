@@ -8,17 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-#import <iAd/iAd.h>
+
 
 @class CLLocation;
 @class ADBannerView;
 @class CoreEvent;
-@interface SaleDetailViewController : UIViewController <UIGestureRecognizerDelegate,UITextFieldDelegate,UITextViewDelegate, MKReverseGeocoderDelegate, ADBannerViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>{
+@interface SaleDetailViewController : UIViewController <UIGestureRecognizerDelegate,UITextFieldDelegate,UITextViewDelegate, MKReverseGeocoderDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>{
 	UITextField *addressInput;
 	UITextField *summaryInput;
 	NSMutableArray *imageViews;
 	CLLocation *myLocation;
-	ADBannerView *adView;
+
 	BOOL bannerIsVisible;
 	UIImageView *photoGrid;
 	MKReverseGeocoder *reverseGeocoder;
@@ -33,7 +33,7 @@
 @property(nonatomic, retain) IBOutlet UITextField *addressInput;
 @property(nonatomic, retain) NSMutableArray *imageViews;
 @property(nonatomic, retain) CLLocation *myLocation;
-@property(nonatomic, retain) ADBannerView *adView;
+
 @property(nonatomic, retain) IBOutlet UIImageView *photoGrid;
 @property(nonatomic, retain) MKReverseGeocoder *reverseGeocoder;
 @property(nonatomic, retain) NSString *currentAddress;
